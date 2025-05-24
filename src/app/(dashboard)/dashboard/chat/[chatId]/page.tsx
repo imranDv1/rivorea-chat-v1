@@ -1,6 +1,5 @@
 import { fetchRedis } from '@/helpers/redis'
 import { authOptions } from '@/lib/auth'
-import { db } from '@/lib/db'
 import { messageArryValidator } from '@/lib/validations/message'
 import { getServerSession } from 'next-auth'
 import { notFound } from 'next/navigation'
@@ -46,7 +45,12 @@ export default async function Page({ params }: { params: Promise<{ chatId: strin
   }
 
   const chatPartnerId = user.id === userId1 ? userId2 : userId1;
-  const chatPartner = (await db.get(`user:${chatPartnerId}`)) as User
+
+
+
+  const chatPartnerRow = await fetchRedis('get', `user:${chatPartnerId}`) as string 
+    const chatPartner = JSON.parse(chatPartnerRow) as User
+    
   const initialMessages = await getChatMessages(chatId)
   return <div className='flex-1 justify-between flex flex-col h-full max-h-[calc(100vh-6rem)]'>
    <div className="flex sm:items-center justify-between py-3 border-b-2 border-gray-200">
