@@ -46,6 +46,8 @@ export const authOptions: NextAuthOptions = {
                 name: dbUser.name,
                 email: dbUser.email,
                 picture: dbUser.image,
+                verified: dbUser.verified || false,
+                goldenBadge: dbUser.goldenBadge || false
             }
         },
 

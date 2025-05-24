@@ -3,6 +3,8 @@ interface User {
     email:string
     image:string
     id:string
+    verified: boolean
+    goldenBadge: boolean
 }
 
 

@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { FC, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import UnseenChatToast from './UnseenChatToast'
+import { Check } from 'lucide-react'
 
 interface SidebarChatListProps {
   friends: User[],
@@ -82,6 +83,18 @@ const SidebarChatList: FC<SidebarChatListProps> = ({ friends, sessionId }) => {
             <div className='bg-indigo-600 font-medium text-xs ml-3 text-white w-4 h-4 rounded-full flex justify-center items-center'>{unseenMessagesCount}</div>
 
           ) : null}
+
+          { friend.verified && (
+            <span className="bg-blue-500 rounded-full p-[2px] ml-2">
+              <Check className="w-3 h-3 text-white" strokeWidth={3} />
+            </span>
+          )}
+
+          { friend.goldenBadge && (
+            <span className="bg-amber-400 rounded-full p-[2px] ml-2">
+              <Check className="w-3 h-3 text-white" strokeWidth={3} />
+            </span>
+          )}
         </a>
       </li>
     })}
